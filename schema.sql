@@ -30,18 +30,25 @@ CREATE TABLE GENRE (
     PRIMARY KEY (genre_id)
 );
 
-CREATE TABLE ACTOR (
-    actor_id INT AUTO_INCREMENT,
-    actor_name VARCHAR(255) NOT NULL,
+CREATE TABLE PERSON (
+    person_id INT AUTO_INCREMENT,
+    person_name VARCHAR(255) NOT NULL,
 
-    PRIMARY KEY (actor_id)
+    PRIMARY KEY (person_id)
+);
+
+CREATE TABLE ACTOR (
+    person_id INT,
+
+    PRIMARY KEY (person_id),
+    FOREIGN KEY (person_id) REFERENCES PERSON(person_id)
 );
 
 CREATE TABLE DIRECTOR (
-    director_id INT AUTO_INCREMENT,
-    director_name VARCHAR(255) NOT NULL,
+    person_id INT,
 
-    PRIMARY KEY (director_id)
+    PRIMARY KEY (person_id),
+    FOREIGN KEY (person_id) REFERENCES PERSON(person_id)
 );
 
 CREATE TABLE RATES (
@@ -93,20 +100,20 @@ CREATE TABLE HAS_GENRE (
 
 CREATE TABLE HAS_ACTOR (
     movie_id INT,
-    actor_id INT,
+    person_id INT,
 
-    PRIMARY KEY (movie_id, actor_id),
+    PRIMARY KEY (movie_id, person_id),
 
     FOREIGN KEY (movie_id) REFERENCES MOVIE(movie_id),
-    FOREIGN KEY (actor_id) REFERENCES ACTOR(actor_id)
+    FOREIGN KEY (person_id) REFERENCES ACTOR(person_id)
 );
 
 CREATE TABLE DIRECTED_BY (
     movie_id INT,
-    director_id INT,
+    person_id INT,
 
-    PRIMARY KEY (movie_id, director_id),
+    PRIMARY KEY (movie_id, person_id),
 
     FOREIGN KEY (movie_id) REFERENCES MOVIE(movie_id),
-    FOREIGN KEY (director_id) REFERENCES DIRECTOR(director_id)
+    FOREIGN KEY (person_id) REFERENCES DIRECTOR(person_id)
 );
